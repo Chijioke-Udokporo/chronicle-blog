@@ -1,0 +1,128 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@layer base {
+  :root {
+    --font-serif: "Newsreader", "Playfair Display", "Merriweather", "Georgia", serif;
+    --font-sans: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --color-paper: #faf9f6;
+    --color-ink: #18181b;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-editorial {
+    font-family: var(--font-serif);
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Editorial styling accents */
+.editorial-headline {
+  font-family: var(--font-serif);
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.article-prose {
+  font-size: 1.125rem;
+  line-height: 1.85;
+  color: #27272a;
+}
+
+.article-prose p {
+  margin-bottom: 1.6rem;
+}
+
+.article-prose h2 {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  margin-top: 2.75rem;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+  color: #09090b;
+}
+
+.article-prose h3 {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #18181b;
+}
+
+.article-prose blockquote {
+  border-left: 3px solid #c2410c;
+  padding-left: 1.5rem;
+  margin: 2.25rem 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.35rem;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.article-prose ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-prose li {
+  margin-bottom: 0.5rem;
+}
+
+.article-prose code {
+  background-color: #f1f0ea;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.95em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.article-prose pre {
+  background-color: #18181b;
+  color: #f4f4f5;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.article-prose pre code {
+  background-color: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+/* Modern interactive form states per modern-web-guidance */
+input:user-invalid,
+textarea:user-invalid {
+  border-color: #ef4444;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #c2410c;
+  outline-offset: 1px;
+}
