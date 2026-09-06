@@ -75,7 +75,10 @@ export function PostCard(props: PostCardProps) {
             <span>{post().readingTime || 3} min read</span>
           </div>
 
-          <a href={`/post/${post().id}`} class="block text-stone-900 dark:text-stone-100 group-hover:text-amber-900 dark:group-hover:text-amber-400 transition-colors">
+          <a
+            href={`/post/${post().id}`}
+            class="block text-stone-900 dark:text-stone-100 group-hover:text-amber-900 dark:group-hover:text-amber-400 transition-colors"
+          >
             <h3
               class={[
                 "font-serif font-bold text-stone-900 dark:text-stone-100 leading-snug tracking-tight mb-3",

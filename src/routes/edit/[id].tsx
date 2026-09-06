@@ -119,7 +119,10 @@ export default function EditPost() {
                 You do not have authorization to modify this article. Only the original author or system administrators
                 can make edits.
               </p>
-              <a href="/" class="px-5 py-2.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-full text-sm font-medium inline-block">
+              <a
+                href="/"
+                class="px-5 py-2.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-full text-sm font-medium inline-block"
+              >
                 Return to Front Page
               </a>
             </div>
@@ -128,7 +131,9 @@ export default function EditPost() {
           <form onSubmit={handleUpdate} class="space-y-8">
             <div class="flex items-center justify-between pb-6 border-b border-stone-200 dark:border-stone-800">
               <div>
-                <span class="text-xs font-mono text-stone-500 dark:text-stone-400 uppercase tracking-wider">Authoring Studio</span>
+                <span class="text-xs font-mono text-stone-500 dark:text-stone-400 uppercase tracking-wider">
+                  Authoring Studio
+                </span>
                 <h1 class="font-serif text-3xl font-black text-stone-900 dark:text-stone-100">Edit Story</h1>
               </div>
 
@@ -150,7 +155,9 @@ export default function EditPost() {
             </div>
 
             <Show when={errorMessage()}>
-              <div class="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 text-sm rounded-xl">{errorMessage()}</div>
+              <div class="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 text-sm rounded-xl">
+                {errorMessage()}
+              </div>
             </Show>
 
             <div class="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-6 sm:p-8 shadow-sm space-y-6 transition-colors">

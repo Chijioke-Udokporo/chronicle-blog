@@ -103,7 +103,9 @@ export default function WritePost() {
                 <path d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
             </div>
-            <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-stone-100 mb-2">Author Authentication Required</h2>
+            <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-stone-100 mb-2">
+              Author Authentication Required
+            </h2>
             <p class="text-stone-600 dark:text-stone-400 max-w-md mx-auto text-sm mb-6 leading-relaxed">
               Chronicle maintains a secure publishing standard. Please sign in or create an author account to publish
               your work.
@@ -129,7 +131,9 @@ export default function WritePost() {
           {/* Top Bar with Title and Publish Button */}
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200 dark:border-stone-800">
             <div>
-              <span class="text-xs font-mono text-stone-500 dark:text-stone-400 uppercase tracking-wider">Publishing Studio</span>
+              <span class="text-xs font-mono text-stone-500 dark:text-stone-400 uppercase tracking-wider">
+                Publishing Studio
+              </span>
               <h1 class="font-serif text-3xl font-black text-stone-900 dark:text-stone-100">Draft a New Story</h1>
             </div>
 
@@ -173,7 +177,9 @@ export default function WritePost() {
           </div>
 
           <Show when={errorMessage()}>
-            <div class="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 text-sm rounded-xl">{errorMessage()}</div>
+            <div class="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 text-sm rounded-xl">
+              {errorMessage()}
+            </div>
           </Show>
 
           {/* Edit Mode vs Preview Mode */}
@@ -188,7 +194,9 @@ export default function WritePost() {
                   <h1 class="font-serif text-3xl sm:text-5xl font-bold text-stone-950 dark:text-stone-50 mb-4">
                     {title() || "Untitled Story"}
                   </h1>
-                  <p class="text-lg text-stone-600 dark:text-stone-400 font-light">{summary() || "No excerpt specified."}</p>
+                  <p class="text-lg text-stone-600 dark:text-stone-400 font-light">
+                    {summary() || "No excerpt specified."}
+                  </p>
                 </div>
                 <Show when={coverImage()}>
                   <img src={coverImage()} alt="Cover" class="w-full max-h-96 object-cover rounded-xl mb-8" />

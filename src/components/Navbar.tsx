@@ -31,12 +31,18 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <nav class="flex items-center gap-4 sm:gap-6">
-            <a href="/" class="text-sm font-medium text-stone-600 dark:text-stone-300 hover:text-stone-950 dark:hover:text-white transition-colors">
+            <a
+              href="/"
+              class="text-sm font-medium text-stone-600 dark:text-stone-300 hover:text-stone-950 dark:hover:text-white transition-colors"
+            >
               Explore
             </a>
 
             <Show when={isAuthenticated()}>
-              <a href="/dashboard" class="text-sm font-medium text-stone-600 dark:text-stone-300 hover:text-stone-950 dark:hover:text-white transition-colors">
+              <a
+                href="/dashboard"
+                class="text-sm font-medium text-stone-600 dark:text-stone-300 hover:text-stone-950 dark:hover:text-white transition-colors"
+              >
                 Dashboard
               </a>
               <a
@@ -98,7 +104,7 @@ export function Navbar() {
                     referrerpolicy="no-referrer"
                     class="w-9 h-9 rounded-full bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 object-cover"
                   />
-                  <span class="hidden md:inline-block text-sm font-medium text-stone-800 dark:text-stone-200 max-w-[120px] truncate">
+                  <span class="hidden md:inline-block text-sm font-medium text-stone-800 dark:text-stone-200 max-w-30 truncate">
                     {user()?.name}
                   </span>
                 </button>

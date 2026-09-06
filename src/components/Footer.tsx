@@ -19,15 +19,23 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 class="text-xs font-mono tracking-wider uppercase text-stone-900 dark:text-stone-200 font-semibold mb-4">Sections</h3>
+            <h3 class="text-xs font-mono tracking-wider uppercase text-stone-900 dark:text-stone-200 font-semibold mb-4">
+              Sections
+            </h3>
             <ul class="space-y-2 text-sm">
               <li>
-                <a href="/?category=Technology" class="hover:text-stone-950 dark:hover:text-stone-100 transition-colors">
+                <a
+                  href="/?category=Technology"
+                  class="hover:text-stone-950 dark:hover:text-stone-100 transition-colors"
+                >
                   Technology
                 </a>
               </li>
               <li>
-                <a href="/?category=Engineering" class="hover:text-stone-950 dark:hover:text-stone-100 transition-colors">
+                <a
+                  href="/?category=Engineering"
+                  class="hover:text-stone-950 dark:hover:text-stone-100 transition-colors"
+                >
                   Engineering
                 </a>
               </li>
@@ -37,7 +45,10 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/?category=Architecture" class="hover:text-stone-950 dark:hover:text-stone-100 transition-colors">
+                <a
+                  href="/?category=Architecture"
+                  class="hover:text-stone-950 dark:hover:text-stone-100 transition-colors"
+                >
                   Architecture
                 </a>
               </li>
@@ -45,7 +56,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 class="text-xs font-mono tracking-wider uppercase text-stone-900 dark:text-stone-200 font-semibold mb-4">Community</h3>
+            <h3 class="text-xs font-mono tracking-wider uppercase text-stone-900 dark:text-stone-200 font-semibold mb-4">
+              Community
+            </h3>
             <ul class="space-y-2 text-sm">
               <li>
                 <a href="/write" class="hover:text-stone-950 dark:hover:text-stone-100 transition-colors">

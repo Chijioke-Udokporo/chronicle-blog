@@ -160,7 +160,9 @@ export default function Home() {
         fallback={
           <div class="py-24 text-center">
             <div class="inline-block w-8 h-8 border-2 border-stone-900 dark:border-stone-100 border-t-transparent rounded-full animate-spin" />
-            <p class="mt-4 text-sm font-mono text-stone-500 dark:text-stone-400">Retrieving articles from Cequre backend...</p>
+            <p class="mt-4 text-sm font-mono text-stone-500 dark:text-stone-400">
+              Retrieving articles from Cequre backend...
+            </p>
           </div>
         }
       >

@@ -69,7 +69,9 @@ export default function Dashboard() {
         fallback={
           <div class="py-20 text-center bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 p-8 shadow-sm">
             <div class="inline-block w-8 h-8 border-2 border-stone-900 dark:border-stone-100 border-t-transparent rounded-full animate-spin" />
-            <p class="mt-3 text-sm font-mono text-stone-500 dark:text-stone-400">Checking author workspace credentials...</p>
+            <p class="mt-3 text-sm font-mono text-stone-500 dark:text-stone-400">
+              Checking author workspace credentials...
+            </p>
           </div>
         }
       >
@@ -78,7 +80,9 @@ export default function Dashboard() {
           fallback={
             <div class="py-20 text-center bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 p-8 shadow-sm">
               <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-stone-100 mb-2">Author Dashboard</h2>
-              <p class="text-stone-600 dark:text-stone-400 text-sm mb-6">Please sign in to access your personal author studio.</p>
+              <p class="text-stone-600 dark:text-stone-400 text-sm mb-6">
+                Please sign in to access your personal author studio.
+              </p>
               <a
                 href="/login"
                 class="px-6 py-2.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-full text-sm font-medium hover:bg-stone-800 dark:hover:bg-stone-200 transition-colors inline-block"
@@ -106,10 +110,14 @@ export default function Dashboard() {
                     <span class="text-xs font-mono tracking-widest text-amber-800 dark:text-amber-400 uppercase font-semibold">
                       Author Workspace
                     </span>
-                    <h1 class="font-serif text-3xl sm:text-4xl font-black text-stone-900 dark:text-stone-100 mt-1">{user()?.name}</h1>
+                    <h1 class="font-serif text-3xl sm:text-4xl font-black text-stone-900 dark:text-stone-100 mt-1">
+                      {user()?.name}
+                    </h1>
                     <p class="text-xs font-mono text-stone-500 dark:text-stone-400 mt-0.5">{user()?.email}</p>
                     <Show when={user()?.bio}>
-                      <p class="text-stone-600 dark:text-stone-300 text-sm mt-3 max-w-xl leading-relaxed">{user()?.bio}</p>
+                      <p class="text-stone-600 dark:text-stone-300 text-sm mt-3 max-w-xl leading-relaxed">
+                        {user()?.bio}
+                      </p>
                     </Show>
                   </div>
                 </div>
@@ -150,15 +158,21 @@ export default function Dashboard() {
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-stone-100 dark:border-stone-800">
                 <div class="bg-stone-50 dark:bg-stone-800/60 rounded-2xl p-4 border border-stone-100 dark:border-stone-800">
                   <p class="text-xs font-mono text-stone-500 dark:text-stone-400 uppercase">Stories Published</p>
-                  <p class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-100 mt-1">{myPosts().length}</p>
+                  <p class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-100 mt-1">
+                    {myPosts().length}
+                  </p>
                 </div>
                 <div class="bg-stone-50 dark:bg-stone-800/60 rounded-2xl p-4 border border-stone-100 dark:border-stone-800">
                   <p class="text-xs font-mono text-stone-500 dark:text-stone-400 uppercase">Total Reading Cadence</p>
-                  <p class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-100 mt-1">{totalReadingMinutes()} min</p>
+                  <p class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-100 mt-1">
+                    {totalReadingMinutes()} min
+                  </p>
                 </div>
                 <div class="bg-stone-50 dark:bg-stone-800/60 rounded-2xl p-4 border border-stone-100 dark:border-stone-800">
                   <p class="text-xs font-mono text-stone-500 dark:text-stone-400 uppercase">Role / Access</p>
-                  <p class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-100 mt-1 capitalize">{user()?.role || "Writer"}</p>
+                  <p class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-100 mt-1 capitalize">
+                    {user()?.role || "Writer"}
+                  </p>
                 </div>
                 <div class="bg-stone-50 dark:bg-stone-800/60 rounded-2xl p-4 border border-stone-100 dark:border-stone-800">
                   <p class="text-xs font-mono text-stone-500 dark:text-stone-400 uppercase">Backend Security</p>
@@ -170,12 +184,16 @@ export default function Dashboard() {
             {/* Stories Section */}
             <div class="space-y-6">
               <div class="flex items-center justify-between">
-                <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100">Your Articles & Publications</h2>
+                <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100">
+                  Your Articles & Publications
+                </h2>
                 <span class="text-xs font-mono text-stone-500 dark:text-stone-400">{myPosts().length} stories</span>
               </div>
 
               <Show when={deleteError()}>
-                <div class="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 text-sm rounded-xl">{deleteError()}</div>
+                <div class="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 text-sm rounded-xl">
+                  {deleteError()}
+                </div>
               </Show>
 
               <Show
@@ -183,7 +201,9 @@ export default function Dashboard() {
                 fallback={
                   <div class="py-16 text-center">
                     <div class="inline-block w-8 h-8 border-2 border-stone-900 dark:border-stone-100 border-t-transparent rounded-full animate-spin" />
-                    <p class="mt-3 text-sm font-mono text-stone-500 dark:text-stone-400">Querying your authored stories...</p>
+                    <p class="mt-3 text-sm font-mono text-stone-500 dark:text-stone-400">
+                      Querying your authored stories...
+                    </p>
                   </div>
                 }
               >
@@ -237,7 +257,9 @@ export default function Dashboard() {
                               <span class="text-xs font-mono text-stone-400 dark:text-stone-500">
                                 {dayjs(post.createdAt).format("MMM D, YYYY")}
                               </span>
-                              <span class="text-xs font-mono text-stone-400 dark:text-stone-500">• {post.readingTime || 3} min read</span>
+                              <span class="text-xs font-mono text-stone-400 dark:text-stone-500">
+                                • {post.readingTime || 3} min read
+                              </span>
                             </div>
 
                             <a href={`/post/${post.id}`} class="block group">

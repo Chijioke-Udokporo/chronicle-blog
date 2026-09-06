@@ -37,9 +37,13 @@ export default function Login() {
     <div class="min-h-[75vh] flex items-center justify-center px-4 py-12">
       <div class="max-w-md w-full bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 p-8 sm:p-10 shadow-sm transition-colors">
         <div class="text-center mb-8">
-          <span class="text-xs font-mono tracking-widest text-amber-800 dark:text-amber-400 uppercase font-semibold">Member Access</span>
+          <span class="text-xs font-mono tracking-widest text-amber-800 dark:text-amber-400 uppercase font-semibold">
+            Member Access
+          </span>
           <h1 class="font-serif text-3xl font-black text-stone-900 dark:text-stone-100 mt-1">Sign in to Chronicle</h1>
-          <p class="text-stone-500 dark:text-stone-400 text-sm mt-2">Enter your credentials to manage your stories and draft new essays.</p>
+          <p class="text-stone-500 dark:text-stone-400 text-sm mt-2">
+            Enter your credentials to manage your stories and draft new essays.
+          </p>
         </div>
 
         <Show when={effectiveError()}>
@@ -92,13 +96,17 @@ export default function Login() {
             <div class="w-full border-t border-stone-200 dark:border-stone-800" />
           </div>
           <div class="relative flex justify-center text-xs uppercase">
-            <span class="bg-white dark:bg-stone-900 px-3 text-stone-400 dark:text-stone-500 font-mono tracking-wider">or sign in with email</span>
+            <span class="bg-white dark:bg-stone-900 px-3 text-stone-400 dark:text-stone-500 font-mono tracking-wider">
+              or sign in with email
+            </span>
           </div>
         </div>
 
         <form onSubmit={handleLogin} class="space-y-5">
           <div>
-            <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">Email Address</label>
+            <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">
+              Email Address
+            </label>
             <input
               type="email"
               autocomplete="email"
@@ -112,7 +120,9 @@ export default function Login() {
 
           <div>
             <div class="flex items-center justify-between mb-2">
-              <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300">Password</label>
+              <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300">
+                Password
+              </label>
             </div>
             <input
               type="password"
@@ -136,7 +146,10 @@ export default function Login() {
 
         <div class="mt-8 pt-6 border-t border-stone-100 dark:border-stone-800 text-center text-xs text-stone-500 dark:text-stone-400">
           New to Chronicle?{" "}
-          <a href="/register" class="font-medium text-stone-900 dark:text-stone-100 hover:text-amber-800 dark:hover:text-amber-400 underline transition-colors">
+          <a
+            href="/register"
+            class="font-medium text-stone-900 dark:text-stone-100 hover:text-amber-800 dark:hover:text-amber-400 underline transition-colors"
+          >
             Create an author account
           </a>
         </div>

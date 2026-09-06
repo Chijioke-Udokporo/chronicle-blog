@@ -44,9 +44,13 @@ export default function Register() {
     <div class="min-h-[75vh] flex items-center justify-center px-4 py-12">
       <div class="max-w-md w-full bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 p-8 sm:p-10 shadow-sm transition-colors">
         <div class="text-center mb-8">
-          <span class="text-xs font-mono tracking-widest text-amber-800 dark:text-amber-400 uppercase font-semibold">Join the Guild</span>
+          <span class="text-xs font-mono tracking-widest text-amber-800 dark:text-amber-400 uppercase font-semibold">
+            Join the Guild
+          </span>
           <h1 class="font-serif text-3xl font-black text-stone-900 dark:text-stone-100 mt-1">Create Author Account</h1>
-          <p class="text-stone-500 dark:text-stone-400 text-sm mt-2">Publish thoughtful essays and architecture critiques on Chronicle.</p>
+          <p class="text-stone-500 dark:text-stone-400 text-sm mt-2">
+            Publish thoughtful essays and architecture critiques on Chronicle.
+          </p>
         </div>
 
         <Show when={effectiveError()}>
@@ -99,13 +103,17 @@ export default function Register() {
             <div class="w-full border-t border-stone-200 dark:border-stone-800" />
           </div>
           <div class="relative flex justify-center text-xs uppercase">
-            <span class="bg-white dark:bg-stone-900 px-3 text-stone-400 dark:text-stone-500 font-mono tracking-wider">or register with email</span>
+            <span class="bg-white dark:bg-stone-900 px-3 text-stone-400 dark:text-stone-500 font-mono tracking-wider">
+              or register with email
+            </span>
           </div>
         </div>
 
         <form onSubmit={handleRegister} class="space-y-4">
           <div>
-            <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">Full Name *</label>
+            <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">
+              Full Name *
+            </label>
             <input
               type="text"
               autocomplete="name"
@@ -118,7 +126,9 @@ export default function Register() {
           </div>
 
           <div>
-            <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">Email Address *</label>
+            <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">
+              Email Address *
+            </label>
             <input
               type="email"
               autocomplete="email"
@@ -170,7 +180,10 @@ export default function Register() {
 
         <div class="mt-8 pt-6 border-t border-stone-100 dark:border-stone-800 text-center text-xs text-stone-500 dark:text-stone-400">
           Already an author?{" "}
-          <a href="/login" class="font-medium text-stone-900 dark:text-stone-100 hover:text-amber-800 dark:hover:text-amber-400 underline transition-colors">
+          <a
+            href="/login"
+            class="font-medium text-stone-900 dark:text-stone-100 hover:text-amber-800 dark:hover:text-amber-400 underline transition-colors"
+          >
             Sign in to existing account
           </a>
         </div>
