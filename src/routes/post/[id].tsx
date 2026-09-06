@@ -76,6 +76,7 @@ export default function PostDetail() {
         <a
           href="/"
           class="inline-flex items-center gap-2 text-sm font-mono text-stone-500 hover:text-stone-900 transition-colors"
+          class="inline-flex items-center gap-2 text-sm font-mono text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition-colors"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -99,6 +100,8 @@ export default function PostDetail() {
           <div class="py-24 text-center">
             <div class="inline-block w-8 h-8 border-2 border-stone-900 border-t-transparent rounded-full animate-spin" />
             <p class="mt-4 text-sm font-mono text-stone-500">Opening story...</p>
+            <div class="inline-block w-8 h-8 border-2 border-stone-900 dark:border-stone-100 border-t-transparent rounded-full animate-spin" />
+            <p class="mt-4 text-sm font-mono text-stone-500 dark:text-stone-400">Opening story...</p>
           </div>
         }
       >
@@ -109,6 +112,10 @@ export default function PostDetail() {
               <h2 class="font-serif text-2xl font-bold text-stone-900 mb-2">Story Not Found</h2>
               <p class="text-stone-600 text-sm mb-6">This article may have been removed or the link is incorrect.</p>
               <a href="/" class="px-5 py-2.5 bg-stone-900 text-white rounded-full text-sm font-medium inline-block">
+            <div class="py-20 text-center bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-8">
+              <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100 mb-2">Story Not Found</h2>
+              <p class="text-stone-600 dark:text-stone-400 text-sm mb-6">This article may have been removed or the link is incorrect.</p>
+              <a href="/" class="px-5 py-2.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-full text-sm font-medium inline-block">
                 Return to Front Page
               </a>
             </div>
@@ -117,23 +124,29 @@ export default function PostDetail() {
           <article>
             {/* Header Meta */}
             <div class="border-b border-stone-200 pb-8 mb-10">
+            <div class="border-b border-stone-200 dark:border-stone-800 pb-8 mb-10">
               <div class="flex items-center gap-3 mb-4">
                 <span class="px-3 py-1 bg-stone-100 border border-stone-200 rounded-full text-xs font-mono font-semibold tracking-wider text-amber-900 uppercase">
+                <span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-full text-xs font-mono font-semibold tracking-wider text-amber-900 dark:text-amber-400 uppercase">
                   {post()!.category}
                 </span>
                 <span class="text-xs font-mono text-stone-500">{post()!.readingTime || 3} min read</span>
+                <span class="text-xs font-mono text-stone-500 dark:text-stone-400">{post()!.readingTime || 3} min read</span>
               </div>
 
               <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-black text-stone-950 tracking-tight leading-tight mb-6">
+              <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-black text-stone-950 dark:text-stone-50 tracking-tight leading-tight mb-6">
                 {post()!.title}
               </h1>
 
               <Show when={post()!.summary}>
                 <p class="text-lg sm:text-xl text-stone-600 font-light leading-relaxed mb-8">{post()!.summary}</p>
+                <p class="text-lg sm:text-xl text-stone-600 dark:text-stone-300 font-light leading-relaxed mb-8">{post()!.summary}</p>
               </Show>
 
               {/* Author Strip & Action Toolbar */}
               <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-stone-100">
+              <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-stone-100 dark:border-stone-800">
                 <div class="flex items-center gap-4">
                   <img
                     src={
@@ -142,10 +155,14 @@ export default function PostDetail() {
                     }
                     alt={authorObj()?.name || "Author"}
                     class="w-12 h-12 rounded-full border border-stone-200 object-cover bg-stone-100"
+                    referrerpolicy="no-referrer"
+                    class="w-12 h-12 rounded-full border border-stone-200 dark:border-stone-700 object-cover bg-stone-100 dark:bg-stone-800"
                   />
                   <div>
                     <p class="font-medium text-stone-900 leading-none">{authorObj()?.name || "Chronicle Writer"}</p>
                     <p class="text-xs font-mono text-stone-500 mt-1">Published on {formattedDate()}</p>
+                    <p class="font-medium text-stone-900 dark:text-stone-100 leading-none">{authorObj()?.name || "Chronicle Writer"}</p>
+                    <p class="text-xs font-mono text-stone-500 dark:text-stone-400 mt-1">Published on {formattedDate()}</p>
                   </div>
                 </div>
 
@@ -155,12 +172,14 @@ export default function PostDetail() {
                     <a
                       href={`/edit/${post()!.id}`}
                       class="px-4 py-1.5 text-xs font-mono font-medium text-stone-700 bg-white border border-stone-300 rounded-full hover:bg-stone-50 transition-colors"
+                      class="px-4 py-1.5 text-xs font-mono font-medium text-stone-700 dark:text-stone-300 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-full hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors"
                     >
                       Edit Story
                     </a>
                     <button
                       onClick={() => setShowDeleteModal(true)}
                       class="px-4 py-1.5 text-xs font-mono font-medium text-red-700 bg-red-50 border border-red-200 rounded-full hover:bg-red-100 transition-colors cursor-pointer"
+                      class="px-4 py-1.5 text-xs font-mono font-medium text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 rounded-full hover:bg-red-100 dark:hover:bg-red-900/60 transition-colors cursor-pointer"
                     >
                       Delete
                     </button>
@@ -172,6 +191,7 @@ export default function PostDetail() {
             {/* Cover Image */}
             <Show when={post()!.coverImage}>
               <div class="mb-12 rounded-2xl overflow-hidden border border-stone-200 shadow-sm max-h-125">
+              <div class="mb-12 rounded-2xl overflow-hidden border border-stone-200 dark:border-stone-800 shadow-sm max-h-125">
                 <img src={post()!.coverImage} alt={post()!.title} class="w-full h-full object-cover object-center" />
               </div>
             </Show>
@@ -181,6 +201,7 @@ export default function PostDetail() {
 
             {/* Author Biography Footer Card */}
             <div class="bg-white rounded-2xl border border-stone-200 p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 shadow-sm">
+            <div class="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 shadow-sm transition-colors">
               <img
                 src={
                   authorObj()?.avatar ||
@@ -188,13 +209,18 @@ export default function PostDetail() {
                 }
                 alt={authorObj()?.name || "Author"}
                 class="w-16 h-16 rounded-full border border-stone-200 object-cover bg-stone-100 shrink-0"
+                referrerpolicy="no-referrer"
+                class="w-16 h-16 rounded-full border border-stone-200 dark:border-stone-700 object-cover bg-stone-100 dark:bg-stone-800 shrink-0"
               />
               <div class="text-center sm:text-left">
                 <span class="text-xs font-mono text-stone-500 uppercase tracking-wider">Written by</span>
                 <h3 class="font-serif text-xl font-bold text-stone-900 mt-0.5 mb-2">
+                <span class="text-xs font-mono text-stone-500 dark:text-stone-400 uppercase tracking-wider">Written by</span>
+                <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-stone-100 mt-0.5 mb-2">
                   {authorObj()?.name || "Chronicle Writer"}
                 </h3>
                 <p class="text-stone-600 text-sm leading-relaxed max-w-xl">
+                <p class="text-stone-600 dark:text-stone-400 text-sm leading-relaxed max-w-xl">
                   {authorObj()?.bio ||
                     "Author and contributor to Chronicle Journal, exploring the intersection of modern software systems and architecture."}
                 </p>
@@ -211,6 +237,10 @@ export default function PostDetail() {
             <h3 class="font-serif text-xl font-bold text-stone-900 mb-2">Delete this story?</h3>
             <p class="text-stone-600 text-sm mb-6">
               Are you sure you want to remove "<span class="font-medium text-stone-900">{post()?.title}</span>"? This
+          <div class="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 max-w-md w-full p-6 shadow-2xl">
+            <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-stone-100 mb-2">Delete this story?</h3>
+            <p class="text-stone-600 dark:text-stone-400 text-sm mb-6">
+              Are you sure you want to remove "<span class="font-medium text-stone-900 dark:text-stone-100">{post()?.title}</span>"? This
               action is irreversible.
             </p>
             <div class="flex items-center justify-end gap-3">
@@ -218,6 +248,7 @@ export default function PostDetail() {
                 onClick={() => setShowDeleteModal(false)}
                 disabled={isDeleting()}
                 class="px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-100 rounded-full transition-colors cursor-pointer"
+                class="px-4 py-2 text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-full transition-colors cursor-pointer"
               >
                 Cancel
               </button>

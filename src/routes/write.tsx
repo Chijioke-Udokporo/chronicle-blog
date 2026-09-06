@@ -89,6 +89,8 @@ export default function WritePost() {
         fallback={
           <div class="py-20 text-center bg-white rounded-3xl border border-stone-200 p-8 shadow-sm">
             <div class="w-16 h-16 bg-amber-50 text-amber-800 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div class="py-20 text-center bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 p-8 shadow-sm">
+            <div class="w-16 h-16 bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-400 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="w-8 h-8"
@@ -105,6 +107,8 @@ export default function WritePost() {
             </div>
             <h2 class="font-serif text-3xl font-bold text-stone-900 mb-2">Author Authentication Required</h2>
             <p class="text-stone-600 max-w-md mx-auto text-sm mb-6 leading-relaxed">
+            <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-stone-100 mb-2">Author Authentication Required</h2>
+            <p class="text-stone-600 dark:text-stone-400 max-w-md mx-auto text-sm mb-6 leading-relaxed">
               Chronicle maintains a secure publishing standard. Please sign in or create an author account to publish
               your work.
             </p>
@@ -112,12 +116,14 @@ export default function WritePost() {
               <a
                 href="/login"
                 class="px-6 py-2.5 bg-stone-900 text-white rounded-full text-sm font-medium hover:bg-stone-800 transition-colors inline-block"
+                class="px-6 py-2.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-full text-sm font-medium hover:bg-stone-800 dark:hover:bg-stone-200 transition-colors inline-block"
               >
                 Sign In
               </a>
               <a
                 href="/register"
                 class="px-6 py-2.5 bg-white border border-stone-300 text-stone-900 rounded-full text-sm font-medium hover:bg-stone-50 transition-colors inline-block"
+                class="px-6 py-2.5 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-stone-100 rounded-full text-sm font-medium hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors inline-block"
               >
                 Create Account
               </a>
@@ -128,20 +134,27 @@ export default function WritePost() {
         <form onSubmit={handleSubmit} class="space-y-8">
           {/* Top Bar with Title and Publish Button */}
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200 dark:border-stone-800">
             <div>
               <span class="text-xs font-mono text-stone-500 uppercase tracking-wider">Publishing Studio</span>
               <h1 class="font-serif text-3xl font-black text-stone-900">Draft a New Story</h1>
+              <span class="text-xs font-mono text-stone-500 dark:text-stone-400 uppercase tracking-wider">Publishing Studio</span>
+              <h1 class="font-serif text-3xl font-black text-stone-900 dark:text-stone-100">Draft a New Story</h1>
             </div>
 
             <div class="flex items-center gap-3">
               {/* Tab Toggles */}
               <div class="flex bg-stone-100 p-1 rounded-full text-xs font-mono">
+              <div class="flex bg-stone-100 dark:bg-stone-800 p-1 rounded-full text-xs font-mono">
                 <button
                   type="button"
                   onClick={() => setActiveTab("edit")}
                   class={[
                     "px-3 py-1.5 rounded-full transition-all cursor-pointer",
                     activeTab() === "edit" ? "bg-white text-stone-900 shadow-sm font-semibold" : "text-stone-600",
+                    activeTab() === "edit"
+                      ? "bg-white dark:bg-stone-700 text-stone-900 dark:text-stone-100 shadow-sm font-semibold"
+                      : "text-stone-600 dark:text-stone-400",
                   ]}
                 >
                   Editor
@@ -152,6 +165,9 @@ export default function WritePost() {
                   class={[
                     "px-3 py-1.5 rounded-full transition-all cursor-pointer",
                     activeTab() === "preview" ? "bg-white text-stone-900 shadow-sm font-semibold" : "text-stone-600",
+                    activeTab() === "preview"
+                      ? "bg-white dark:bg-stone-700 text-stone-900 dark:text-stone-100 shadow-sm font-semibold"
+                      : "text-stone-600 dark:text-stone-400",
                   ]}
                 >
                   Live Preview
@@ -162,6 +178,7 @@ export default function WritePost() {
                 type="submit"
                 disabled={isSubmitting()}
                 class="px-6 py-2.5 bg-stone-900 hover:bg-stone-800 text-white font-medium text-sm rounded-full transition-all shadow active:scale-95 disabled:opacity-50 cursor-pointer"
+                class="px-6 py-2.5 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-stone-200 text-white dark:text-stone-900 font-medium text-sm rounded-full transition-all shadow active:scale-95 disabled:opacity-50 cursor-pointer"
               >
                 {isSubmitting() ? "Publishing..." : "Publish Story"}
               </button>
@@ -170,6 +187,7 @@ export default function WritePost() {
 
           <Show when={errorMessage()}>
             <div class="p-4 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl">{errorMessage()}</div>
+            <div class="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 text-sm rounded-xl">{errorMessage()}</div>
           </Show>
 
           {/* Edit Mode vs Preview Mode */}
@@ -179,12 +197,17 @@ export default function WritePost() {
               <div class="bg-white rounded-2xl border border-stone-200 p-8 sm:p-12 shadow-sm min-h-125">
                 <div class="border-b border-stone-100 pb-6 mb-8">
                   <span class="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wide bg-stone-100 text-stone-800 mb-4">
+              <div class="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-8 sm:p-12 shadow-sm min-h-125 transition-colors">
+                <div class="border-b border-stone-100 dark:border-stone-800 pb-6 mb-8">
+                  <span class="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wide bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 mb-4">
                     {category()}
                   </span>
                   <h1 class="font-serif text-3xl sm:text-5xl font-bold text-stone-950 mb-4">
+                  <h1 class="font-serif text-3xl sm:text-5xl font-bold text-stone-950 dark:text-stone-50 mb-4">
                     {title() || "Untitled Story"}
                   </h1>
                   <p class="text-lg text-stone-600 font-light">{summary() || "No excerpt specified."}</p>
+                  <p class="text-lg text-stone-600 dark:text-stone-400 font-light">{summary() || "No excerpt specified."}</p>
                 </div>
                 <Show when={coverImage()}>
                   <img src={coverImage()} alt="Cover" class="w-full max-h-96 object-cover rounded-xl mb-8" />
@@ -193,6 +216,7 @@ export default function WritePost() {
                   when={content()}
                   fallback={
                     <div class="article-prose text-stone-400 font-light italic">
+                    <div class="article-prose text-stone-400 dark:text-stone-500 font-light italic">
                       Start writing in the Editor tab to preview your formatted story here...
                     </div>
                   }
@@ -203,9 +227,11 @@ export default function WritePost() {
             }
           >
             <div class="bg-white rounded-2xl border border-stone-200 p-6 sm:p-8 shadow-sm space-y-6">
+            <div class="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-6 sm:p-8 shadow-sm space-y-6 transition-colors">
               {/* Story Title */}
               <div>
                 <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 mb-2">
+                <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">
                   Story Title *
                 </label>
                 <input
@@ -215,6 +241,7 @@ export default function WritePost() {
                   onInput={(e) => setTitle(e.currentTarget.value)}
                   required
                   class="w-full font-serif text-2xl sm:text-3xl font-bold px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:bg-white focus:outline-none focus:border-stone-900 transition-all placeholder:text-stone-300"
+                  class="w-full font-serif text-2xl sm:text-3xl font-bold px-4 py-3 bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-stone-900 dark:focus:border-stone-100 transition-all text-stone-900 dark:text-stone-100 placeholder:text-stone-300 dark:placeholder:text-stone-600"
                 />
               </div>
 
@@ -222,12 +249,14 @@ export default function WritePost() {
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 mb-2">
+                  <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">
                     Section Category *
                   </label>
                   <select
                     value={category()}
                     onChange={(e) => setCategory(e.currentTarget.value as any)}
                     class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm text-stone-900 focus:bg-white focus:outline-none focus:border-stone-900 transition-colors"
+                    class="w-full px-4 py-2.5 bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 rounded-xl text-sm text-stone-900 dark:text-stone-100 focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-stone-900 dark:focus:border-stone-100 transition-colors"
                   >
                     <option value="Technology">Technology</option>
                     <option value="Engineering">Engineering</option>
@@ -239,9 +268,11 @@ export default function WritePost() {
 
                 <div>
                   <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 mb-2">
+                  <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">
                     Estimated Reading Cadence
                   </label>
                   <div class="flex items-center gap-3 px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-mono text-stone-600">
+                  <div class="flex items-center gap-3 px-4 py-2.5 bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 rounded-xl text-sm font-mono text-stone-600 dark:text-stone-400">
                     <span>{readingTime()} min read</span>
                     <span>•</span>
                     <span>{wordCount()} words</span>
@@ -252,6 +283,7 @@ export default function WritePost() {
               {/* Cover Image URL */}
               <div>
                 <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 mb-2">
+                <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">
                   Cover Image URL (Optional)
                 </label>
                 <input
@@ -260,8 +292,10 @@ export default function WritePost() {
                   value={coverImage()}
                   onInput={(e) => setCoverImage(e.currentTarget.value)}
                   class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm text-stone-900 focus:bg-white focus:outline-none focus:border-stone-900 transition-colors placeholder:text-stone-400"
+                  class="w-full px-4 py-2.5 bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 rounded-xl text-sm text-stone-900 dark:text-stone-100 focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-stone-900 dark:focus:border-stone-100 transition-colors placeholder:text-stone-400 dark:placeholder:text-stone-500"
                 />
                 <div class="mt-2 flex items-center gap-2 text-xs text-stone-500 font-mono">
+                <div class="mt-2 flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 font-mono">
                   <span>Quick Curated Covers:</span>
                   <button
                     type="button"
@@ -271,6 +305,7 @@ export default function WritePost() {
                       )
                     }
                     class="underline hover:text-stone-900 cursor-pointer"
+                    class="underline hover:text-stone-900 dark:hover:text-stone-100 cursor-pointer"
                   >
                     Circuit
                   </button>
@@ -283,6 +318,7 @@ export default function WritePost() {
                       )
                     }
                     class="underline hover:text-stone-900 cursor-pointer"
+                    class="underline hover:text-stone-900 dark:hover:text-stone-100 cursor-pointer"
                   >
                     Architecture
                   </button>
@@ -295,6 +331,7 @@ export default function WritePost() {
                       )
                     }
                     class="underline hover:text-stone-900 cursor-pointer"
+                    class="underline hover:text-stone-900 dark:hover:text-stone-100 cursor-pointer"
                   >
                     Studio
                   </button>
@@ -304,6 +341,7 @@ export default function WritePost() {
               {/* Brief Summary */}
               <div>
                 <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 mb-2">
+                <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">
                   Brief Summary / Standfirst
                 </label>
                 <textarea
@@ -312,12 +350,14 @@ export default function WritePost() {
                   value={summary()}
                   onInput={(e) => setSummary(e.currentTarget.value)}
                   class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm text-stone-900 focus:bg-white focus:outline-none focus:border-stone-900 transition-colors placeholder:text-stone-400"
+                  class="w-full px-4 py-2.5 bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 rounded-xl text-sm text-stone-900 dark:text-stone-100 focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-stone-900 dark:focus:border-stone-100 transition-colors placeholder:text-stone-400 dark:placeholder:text-stone-500"
                 />
               </div>
 
               {/* Main Article Content */}
               <div>
                 <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 mb-2">
+                <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">
                   Article Body (Markdown Supported) *
                 </label>
                 <textarea
@@ -327,6 +367,7 @@ export default function WritePost() {
                   onInput={(e) => setContent(e.currentTarget.value)}
                   required
                   class="w-full font-mono text-sm px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:bg-white focus:outline-none focus:border-stone-900 transition-colors placeholder:text-stone-400 leading-relaxed"
+                  class="w-full font-mono text-sm px-4 py-3 bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-stone-900 dark:focus:border-stone-100 transition-colors text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 leading-relaxed"
                 />
               </div>
             </div>

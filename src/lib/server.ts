@@ -13,7 +13,7 @@ function getAuthTokenFromCookie(): string | null {
   if (!event) return null;
   const cookieHeader = event.request.headers.get("cookie");
   const cookies = parseCookieHeader(cookieHeader);
-  return cookies["cequre_access_token"] || null;
+  return cookies["cequre_access_token"] || cookies["cequre_auth"] || null;
 }
 
 /**
@@ -33,18 +33,20 @@ function setAuthCookie(token: string) {
 }
 
 /**
- * Clears the cequre_access_token cookie
+ * Clears authentication session cookies
  */
 function clearAuthCookie() {
   const event = getRequestEvent();
   if (event && (event as any).response) {
-    const cookie = serializeCookie("cequre_access_token", "", {
+    const clearOpts = {
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: "lax" as const,
       path: "/",
       maxAge: 0,
-    });
-    (event as any).response.headers.append("Set-Cookie", cookie);
+    };
+    (event as any).response.headers.append("Set-Cookie", serializeCookie("cequre_access_token", "", clearOpts));
+    (event as any).response.headers.append("Set-Cookie", serializeCookie("cequre_auth", "", clearOpts));
+    (event as any).response.headers.append("Set-Cookie", serializeCookie("cequre_auth_refresh", "", clearOpts));
   }
 }
 
@@ -63,6 +65,7 @@ export async function loginServerAction(credentials: {
 }): Promise<{ success: boolean; user?: Users | null; error?: string }> {
   try {
     const res = await serverClient.auth.login({ email: credentials.email, password: credentials.password });
+    const res = await serverClient.users.login({ email: credentials.email, password: credentials.password });
     if (res.error) {
       return { success: false, error: res.error.message || "Invalid credentials" };
     }
@@ -91,6 +94,7 @@ export async function registerServerAction(data: {
 }): Promise<{ success: boolean; user?: Users | null; error?: string }> {
   try {
     const res = await serverClient.auth.register({
+    const res = await serverClient.users.register({
       name: data.name,
       email: data.email,
       password: data.password,
@@ -360,6 +364,7 @@ export async function seedCuratedArticlesServer(): Promise<{ success: boolean; e
       authorId = userRes.data.docs[0].id;
     } else {
       const createRes = await serverClient.auth.register({
+      const createRes = await serverClient.users.register({
         name: "Elena Vance",
         email: "editorial@chronicle.journal",
         password: "EditorialPassword123!",
