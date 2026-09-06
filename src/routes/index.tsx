@@ -81,19 +81,15 @@ export default function Home() {
   return (
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Editorial Header & Masthead */}
-      <section class="border-b border-stone-200 pb-12 mb-10 text-center sm:text-left">
       <section class="border-b border-stone-200 dark:border-stone-800 pb-12 mb-10 text-center sm:text-left transition-colors">
         <div class="sm:flex sm:items-end sm:justify-between">
           <div>
-            <span class="text-xs font-mono tracking-widest text-amber-800 uppercase font-semibold">
             <span class="text-xs font-mono tracking-widest text-amber-800 dark:text-amber-400 uppercase font-semibold">
               Volume IV • Issue 09
             </span>
-            <h1 class="font-serif text-4xl sm:text-6xl font-black text-stone-900 tracking-tight mt-2 mb-4 leading-none">
             <h1 class="font-serif text-4xl sm:text-6xl font-black text-stone-900 dark:text-stone-100 tracking-tight mt-2 mb-4 leading-none">
               Dispatches on Code & Craft
             </h1>
-            <p class="text-stone-600 text-lg sm:text-xl max-w-2xl font-normal leading-relaxed">
             <p class="text-stone-600 dark:text-stone-400 text-lg sm:text-xl max-w-2xl font-normal leading-relaxed">
               Curated long-form essays, architecture patterns, and technical reflections from independent builders.
             </p>
@@ -103,7 +99,6 @@ export default function Home() {
             <Show when={isAuthenticated()}>
               <a
                 href="/write"
-                class="px-5 py-2.5 bg-stone-900 text-white rounded-full text-sm font-medium hover:bg-stone-800 transition-all shadow"
                 class="px-5 py-2.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-full text-sm font-medium hover:bg-stone-800 dark:hover:bg-stone-200 transition-all shadow"
               >
                 Write an Article
@@ -113,7 +108,6 @@ export default function Home() {
         </div>
 
         {/* Filter Controls & Search */}
-        <div class="mt-10 flex flex-col md:flex-row md:items-center justify-between gap-6 pt-6 border-t border-stone-200/60">
         <div class="mt-10 flex flex-col md:flex-row md:items-center justify-between gap-6 pt-6 border-t border-stone-200/60 dark:border-stone-800/80">
           {/* Category Tabs */}
           <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
@@ -124,8 +118,6 @@ export default function Home() {
                   class={[
                     "px-4 py-1.5 rounded-full text-xs font-mono tracking-wide transition-all whitespace-nowrap cursor-pointer",
                     activeCategory() === category
-                      ? "bg-stone-900 text-white shadow-sm font-semibold"
-                      : "bg-white border border-stone-200 text-stone-600 hover:border-stone-400",
                       ? "bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 shadow-sm font-semibold"
                       : "bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-stone-400 dark:hover:border-stone-500",
                   ]}
@@ -143,12 +135,10 @@ export default function Home() {
               placeholder="Search stories & authors..."
               value={searchQuery()}
               onInput={(e) => setSearchQuery(e.currentTarget.value)}
-              class="w-full px-4 py-2 pl-9 bg-white border border-stone-200 rounded-full text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-900 transition-colors shadow-sm"
               class="w-full px-4 py-2 pl-9 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-full text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:border-stone-900 dark:focus:border-stone-100 transition-colors shadow-sm"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
               class="w-4 h-4 text-stone-400 dark:text-stone-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
               viewBox="0 0 24 24"
               fill="none"
@@ -169,8 +159,6 @@ export default function Home() {
         when={!isLoading()}
         fallback={
           <div class="py-24 text-center">
-            <div class="inline-block w-8 h-8 border-2 border-stone-900 border-t-transparent rounded-full animate-spin" />
-            <p class="mt-4 text-sm font-mono text-stone-500">Retrieving articles from Cequre backend...</p>
             <div class="inline-block w-8 h-8 border-2 border-stone-900 dark:border-stone-100 border-t-transparent rounded-full animate-spin" />
             <p class="mt-4 text-sm font-mono text-stone-500 dark:text-stone-400">Retrieving articles from Cequre backend...</p>
           </div>
@@ -179,8 +167,6 @@ export default function Home() {
         <Show
           when={filteredPosts().length > 0}
           fallback={
-            <div class="text-center py-20 bg-white rounded-3xl border border-stone-200 p-8 shadow-sm">
-              <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-4 text-stone-400">
             <div class="text-center py-20 bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 p-8 shadow-sm">
               <div class="w-16 h-16 bg-stone-100 dark:bg-stone-800 rounded-full flex items-center justify-center mx-auto mb-4 text-stone-400 dark:text-stone-500">
                 <svg
@@ -198,8 +184,6 @@ export default function Home() {
                   <path d="M6 10h10" />
                 </svg>
               </div>
-              <h2 class="font-serif text-2xl font-bold text-stone-900 mb-2">No Articles Found</h2>
-              <p class="text-stone-600 max-w-md mx-auto text-sm mb-6 leading-relaxed">
               <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100 mb-2">No Articles Found</h2>
               <p class="text-stone-600 dark:text-stone-400 max-w-md mx-auto text-sm mb-6 leading-relaxed">
                 {searchQuery() || activeCategory() !== "All"
@@ -211,7 +195,6 @@ export default function Home() {
                 <Show when={isAuthenticated()}>
                   <a
                     href="/write"
-                    class="px-5 py-2.5 bg-stone-900 text-white rounded-full text-sm font-medium hover:bg-stone-800 transition-colors"
                     class="px-5 py-2.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-full text-sm font-medium hover:bg-stone-800 dark:hover:bg-stone-200 transition-colors"
                   >
                     Write the First Story
@@ -220,7 +203,6 @@ export default function Home() {
                 <button
                   onClick={handleSeedSampleStories}
                   disabled={isSeeding()}
-                  class="px-5 py-2.5 bg-white border border-stone-300 text-stone-800 rounded-full text-sm font-medium hover:bg-stone-50 transition-colors disabled:opacity-50 cursor-pointer"
                   class="px-5 py-2.5 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 text-stone-800 dark:text-stone-200 rounded-full text-sm font-medium hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors disabled:opacity-50 cursor-pointer"
                 >
                   {isSeeding() ? "Publishing Stories..." : "Seed Curated Editorial Articles"}

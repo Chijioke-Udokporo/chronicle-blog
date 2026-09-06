@@ -64,7 +64,6 @@ export async function loginServerAction(credentials: {
   password: string;
 }): Promise<{ success: boolean; user?: Users | null; error?: string }> {
   try {
-    const res = await serverClient.auth.login({ email: credentials.email, password: credentials.password });
     const res = await serverClient.users.login({ email: credentials.email, password: credentials.password });
     if (res.error) {
       return { success: false, error: res.error.message || "Invalid credentials" };
@@ -93,7 +92,6 @@ export async function registerServerAction(data: {
   avatar?: string;
 }): Promise<{ success: boolean; user?: Users | null; error?: string }> {
   try {
-    const res = await serverClient.auth.register({
     const res = await serverClient.users.register({
       name: data.name,
       email: data.email,
@@ -363,7 +361,6 @@ export async function seedCuratedArticlesServer(): Promise<{ success: boolean; e
     if (userRes.data?.docs && userRes.data.docs.length > 0) {
       authorId = userRes.data.docs[0].id;
     } else {
-      const createRes = await serverClient.auth.register({
       const createRes = await serverClient.users.register({
         name: "Elena Vance",
         email: "editorial@chronicle.journal",

@@ -35,19 +35,14 @@ export default function Login() {
 
   return (
     <div class="min-h-[75vh] flex items-center justify-center px-4 py-12">
-      <div class="max-w-md w-full bg-white rounded-3xl border border-stone-200 p-8 sm:p-10 shadow-sm">
       <div class="max-w-md w-full bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 p-8 sm:p-10 shadow-sm transition-colors">
         <div class="text-center mb-8">
-          <span class="text-xs font-mono tracking-widest text-amber-800 uppercase font-semibold">Member Access</span>
-          <h1 class="font-serif text-3xl font-black text-stone-900 mt-1">Sign in to Chronicle</h1>
-          <p class="text-stone-500 text-sm mt-2">Enter your credentials to manage your stories and draft new essays.</p>
           <span class="text-xs font-mono tracking-widest text-amber-800 dark:text-amber-400 uppercase font-semibold">Member Access</span>
           <h1 class="font-serif text-3xl font-black text-stone-900 dark:text-stone-100 mt-1">Sign in to Chronicle</h1>
           <p class="text-stone-500 dark:text-stone-400 text-sm mt-2">Enter your credentials to manage your stories and draft new essays.</p>
         </div>
 
         <Show when={effectiveError()}>
-          <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl flex items-start gap-3">
           <div class="mb-6 p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 text-sm rounded-xl flex items-start gap-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +64,6 @@ export default function Login() {
 
         <a
           href="http://localhost:3000/api/auth/google"
-          class="w-full flex items-center justify-center gap-3 py-3 px-4 bg-white hover:bg-stone-50 text-stone-700 font-medium text-sm rounded-full border border-stone-300 transition-all shadow-xs hover:border-stone-400 active:scale-[0.98] cursor-pointer"
           class="w-full flex items-center justify-center gap-3 py-3 px-4 bg-white dark:bg-stone-800 hover:bg-stone-50 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 font-medium text-sm rounded-full border border-stone-300 dark:border-stone-700 transition-all shadow-xs hover:border-stone-400 dark:hover:border-stone-600 active:scale-[0.98] cursor-pointer"
         >
           <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
@@ -95,18 +89,15 @@ export default function Login() {
 
         <div class="relative my-6 text-center">
           <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-stone-200" />
             <div class="w-full border-t border-stone-200 dark:border-stone-800" />
           </div>
           <div class="relative flex justify-center text-xs uppercase">
-            <span class="bg-white px-3 text-stone-400 font-mono tracking-wider">or sign in with email</span>
             <span class="bg-white dark:bg-stone-900 px-3 text-stone-400 dark:text-stone-500 font-mono tracking-wider">or sign in with email</span>
           </div>
         </div>
 
         <form onSubmit={handleLogin} class="space-y-5">
           <div>
-            <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 mb-2">Email Address</label>
             <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">Email Address</label>
             <input
               type="email"
@@ -115,14 +106,12 @@ export default function Login() {
               placeholder="writer@example.com"
               value={email()}
               onInput={(e) => setEmail(e.currentTarget.value)}
-              class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 text-sm focus:bg-white focus:outline-none focus:border-stone-900 transition-colors"
               class="w-full px-4 py-3 bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 rounded-xl text-stone-900 dark:text-stone-100 text-sm focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-stone-900 dark:focus:border-stone-100 transition-colors placeholder:text-stone-400 dark:placeholder:text-stone-500"
             />
           </div>
 
           <div>
             <div class="flex items-center justify-between mb-2">
-              <label class="block text-xs font-mono uppercase tracking-wider text-stone-600">Password</label>
               <label class="block text-xs font-mono uppercase tracking-wider text-stone-600 dark:text-stone-300">Password</label>
             </div>
             <input
@@ -132,7 +121,6 @@ export default function Login() {
               placeholder="••••••••••••"
               value={password()}
               onInput={(e) => setPassword(e.currentTarget.value)}
-              class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 text-sm focus:bg-white focus:outline-none focus:border-stone-900 transition-colors"
               class="w-full px-4 py-3 bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 rounded-xl text-stone-900 dark:text-stone-100 text-sm focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-stone-900 dark:focus:border-stone-100 transition-colors placeholder:text-stone-400 dark:placeholder:text-stone-500"
             />
           </div>
@@ -140,17 +128,14 @@ export default function Login() {
           <button
             type="submit"
             disabled={isLoading()}
-            class="w-full py-3 px-4 bg-stone-900 hover:bg-stone-800 text-white font-medium text-sm rounded-full transition-all shadow active:scale-[0.98] disabled:opacity-50 mt-2 cursor-pointer"
             class="w-full py-3 px-4 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-stone-200 text-white dark:text-stone-900 font-medium text-sm rounded-full transition-all shadow active:scale-[0.98] disabled:opacity-50 mt-2 cursor-pointer"
           >
             {isLoading() ? "Authenticating with Cequre..." : "Sign In to Your Journal"}
           </button>
         </form>
 
-        <div class="mt-8 pt-6 border-t border-stone-100 text-center text-xs text-stone-500">
         <div class="mt-8 pt-6 border-t border-stone-100 dark:border-stone-800 text-center text-xs text-stone-500 dark:text-stone-400">
           New to Chronicle?{" "}
-          <a href="/register" class="font-medium text-stone-900 hover:text-amber-800 underline transition-colors">
           <a href="/register" class="font-medium text-stone-900 dark:text-stone-100 hover:text-amber-800 dark:hover:text-amber-400 underline transition-colors">
             Create an author account
           </a>
