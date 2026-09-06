@@ -14,7 +14,7 @@ function App() {
   return (
     <Router>
       {(props) => (
-        <div class="min-h-screen flex flex-col bg-[#faf9f6] text-stone-900 selection:bg-amber-200 selection:text-stone-900">
+        <div class="min-h-screen flex flex-col bg-paper text-stone-900 selection:bg-amber-200 selection:text-stone-900">
           <Title>Chronicle — Technical & Architecture Journal</Title>
           <Navbar />
           <main class="flex-1 w-full">

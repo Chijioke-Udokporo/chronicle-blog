@@ -118,7 +118,7 @@ export function Navbar() {
                     >
                       New Article
                     </a>
-                    <div class="border-t border-stone-100 my-1"></div>
+                    <div class="border-t border-stone-100 my-1" />
                     <button
                       onClick={handleLogout}
                       class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors cursor-pointer"

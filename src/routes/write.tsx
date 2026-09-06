@@ -1,7 +1,8 @@
 import { createSignal, createMemo, Show } from "solid-js";
 import { useNavigate } from "@solidjs/router";
-import { client } from "../lib/api";
+import { createPostServer } from "../lib/api";
 import { user, isAuthenticated } from "../lib/auth";
+import { Markdown } from "../components/Markdown";
 
 export default function WritePost() {
   const navigate = useNavigate();
@@ -51,33 +52,22 @@ export default function WritePost() {
 
     setIsSubmitting(true);
     try {
-      // Auto generate slug from title
-      const slugBase = title()
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "");
-      const slug = `${slugBase}-${Math.random().toString(36).substring(2, 6)}`;
-
-      const res = await client.posts.post({
+      const res = await createPostServer({
         title: title().trim(),
-        slug,
         category: category(),
         coverImage: coverImage().trim() || undefined,
         summary: summary().trim() || undefined,
         content: content().trim(),
-        readingTime: readingTime(),
-        published: true,
-        author: currentUser.id,
       });
 
-      if (res.error) {
-        setErrorMessage(res.error.message || "Failed to publish article.");
+      if (!res.success) {
+        setErrorMessage(res.error || "Failed to publish article.");
         setIsSubmitting(false);
         return;
       }
 
-      if (res.data?.id) {
-        navigate(`/post/${res.data.id}`);
+      if (res.post?.id) {
+        navigate(`/post/${res.post.id}`);
       } else {
         navigate("/");
       }
@@ -149,18 +139,20 @@ export default function WritePost() {
                 <button
                   type="button"
                   onClick={() => setActiveTab("edit")}
-                  class={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${
-                    activeTab() === "edit" ? "bg-white text-stone-900 shadow-sm font-semibold" : "text-stone-600"
-                  }`}
+                  class={[
+                    "px-3 py-1.5 rounded-full transition-all cursor-pointer",
+                    activeTab() === "edit" ? "bg-white text-stone-900 shadow-sm font-semibold" : "text-stone-600",
+                  ]}
                 >
                   Editor
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveTab("preview")}
-                  class={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${
-                    activeTab() === "preview" ? "bg-white text-stone-900 shadow-sm font-semibold" : "text-stone-600"
-                  }`}
+                  class={[
+                    "px-3 py-1.5 rounded-full transition-all cursor-pointer",
+                    activeTab() === "preview" ? "bg-white text-stone-900 shadow-sm font-semibold" : "text-stone-600",
+                  ]}
                 >
                   Live Preview
                 </button>
@@ -184,7 +176,7 @@ export default function WritePost() {
           <Show
             when={activeTab() === "edit"}
             fallback={
-              <div class="bg-white rounded-2xl border border-stone-200 p-8 sm:p-12 shadow-sm min-h-[500px]">
+              <div class="bg-white rounded-2xl border border-stone-200 p-8 sm:p-12 shadow-sm min-h-125">
                 <div class="border-b border-stone-100 pb-6 mb-8">
                   <span class="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wide bg-stone-100 text-stone-800 mb-4">
                     {category()}
@@ -197,9 +189,16 @@ export default function WritePost() {
                 <Show when={coverImage()}>
                   <img src={coverImage()} alt="Cover" class="w-full max-h-96 object-cover rounded-xl mb-8" />
                 </Show>
-                <div class="article-prose whitespace-pre-wrap leading-relaxed text-stone-800">
-                  {content() || "Start writing in the Editor tab to preview your formatted story here..."}
-                </div>
+                <Show
+                  when={content()}
+                  fallback={
+                    <div class="article-prose text-stone-400 font-light italic">
+                      Start writing in the Editor tab to preview your formatted story here...
+                    </div>
+                  }
+                >
+                  <Markdown content={content()} class="article-prose max-w-none" />
+                </Show>
               </div>
             }
           >

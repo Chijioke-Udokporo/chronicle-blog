@@ -1,7 +1,8 @@
 import { createSignal, onSettled, Show } from "solid-js";
 import { useParams, useNavigate } from "@solidjs/router";
-import { client, type PostsPopulated } from "../../lib/api";
+import { getPostByIdServer, deletePostServer, type PostsPopulated } from "../../lib/api";
 import { user } from "../../lib/auth";
+import { Markdown } from "../../components/Markdown";
 import dayjs from "dayjs";
 
 export default function PostDetail() {
@@ -15,15 +16,12 @@ export default function PostDetail() {
   const loadPost = async (id: string) => {
     setIsLoading(true);
     try {
-      const res = await client.posts.get({
-        id,
-        query: { depth: 1 },
-      });
-      if (res.data) {
-        setPost(res.data as any);
+      const data = await getPostByIdServer(id);
+      if (data) {
+        setPost(data);
       }
     } catch (err) {
-      console.error("Failed to load post:", err);
+      console.error("Failed to load post via server function:", err);
     } finally {
       setIsLoading(false);
     }
@@ -58,9 +56,9 @@ export default function PostDetail() {
     if (!post()) return;
     setIsDeleting(true);
     try {
-      const res = await client.posts.delete(post()!.id);
-      if (res.error) {
-        alert("Failed to delete story: " + res.error.message);
+      const res = await deletePostServer(post()!.id);
+      if (!res.success) {
+        alert("Failed to delete story: " + (res.error || "Unknown error"));
         setIsDeleting(false);
         return;
       }
@@ -69,31 +67,6 @@ export default function PostDetail() {
       alert("Error deleting story: " + err.message);
       setIsDeleting(false);
     }
-  };
-
-  // Convert text into formatted paragraphs and headings
-  const renderFormattedContent = (content: string) => {
-    if (!content) return "";
-    const paragraphs = content.split(/\n\s*\n/);
-    return paragraphs
-      .map((p) => {
-        p = p.trim();
-        if (p.startsWith("### ")) {
-          return `<h3>${p.replace(/^###\s+/, "")}</h3>`;
-        }
-        if (p.startsWith("## ")) {
-          return `<h2>${p.replace(/^##\s+/, "")}</h2>`;
-        }
-        if (p.startsWith("> ")) {
-          return `<blockquote>${p.replace(/^>\s+/, "")}</blockquote>`;
-        }
-        if (p.startsWith("```")) {
-          const code = p.replace(/^```[a-z]*\n?/, "").replace(/\n?```$/, "");
-          return `<pre><code>${code}</code></pre>`;
-        }
-        return `<p>${p.replace(/\n/g, "<br/>")}</p>`;
-      })
-      .join("");
   };
 
   return (
@@ -198,13 +171,13 @@ export default function PostDetail() {
 
             {/* Cover Image */}
             <Show when={post()!.coverImage}>
-              <div class="mb-12 rounded-2xl overflow-hidden border border-stone-200 shadow-sm max-h-[500px]">
+              <div class="mb-12 rounded-2xl overflow-hidden border border-stone-200 shadow-sm max-h-125">
                 <img src={post()!.coverImage} alt={post()!.title} class="w-full h-full object-cover object-center" />
               </div>
             </Show>
 
             {/* Article Prose */}
-            <div class="article-prose max-w-none mb-16" innerHTML={renderFormattedContent(post()!.content)} />
+            <Markdown content={post()!.content} class="article-prose max-w-none mb-16" />
 
             {/* Author Biography Footer Card */}
             <div class="bg-white rounded-2xl border border-stone-200 p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 shadow-sm">

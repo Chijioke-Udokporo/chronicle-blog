@@ -41,13 +41,17 @@ export function PostCard(props: PostCardProps) {
 
   return (
     <article
-      class={`group flex flex-col justify-between bg-white rounded-2xl border border-stone-200/80 overflow-hidden shadow-sm hover:shadow-md hover:border-stone-300 transition-all duration-200 ${
-        props.featured ? "md:col-span-2 lg:col-span-3 lg:grid lg:grid-cols-12 lg:gap-8" : ""
-      }`}
+      class={[
+        "group flex flex-col justify-between bg-white rounded-2xl border border-stone-200/80 overflow-hidden shadow-sm hover:shadow-md hover:border-stone-300 transition-all duration-200",
+        props.featured ? "md:col-span-2 lg:col-span-3 lg:grid lg:grid-cols-12 lg:gap-8" : "",
+      ]}
     >
       {/* Cover Image */}
       <div
-        class={`${props.featured ? "lg:col-span-7 h-64 sm:h-80 lg:h-full" : "h-52"} overflow-hidden bg-stone-100 relative`}
+        class={[
+          "overflow-hidden bg-stone-100 relative",
+          props.featured ? "lg:col-span-7 h-64 sm:h-80 lg:h-full" : "h-52",
+        ]}
       >
         <img
           src={post().coverImage || defaultCover(post().category)}
@@ -63,7 +67,7 @@ export function PostCard(props: PostCardProps) {
       </div>
 
       {/* Content */}
-      <div class={`p-6 sm:p-8 flex flex-col justify-between ${props.featured ? "lg:col-span-5" : "flex-1"}`}>
+      <div class={["p-6 sm:p-8 flex flex-col justify-between", props.featured ? "lg:col-span-5" : "flex-1"]}>
         <div>
           <div class="flex items-center gap-3 text-xs font-mono text-stone-500 mb-3">
             <span>{formattedDate()}</span>
@@ -73,9 +77,10 @@ export function PostCard(props: PostCardProps) {
 
           <a href={`/post/${post().id}`} class="block text-stone-900 group-hover:text-amber-900 transition-colors">
             <h3
-              class={`font-serif font-bold text-stone-900 leading-snug tracking-tight mb-3 ${
-                props.featured ? "text-2xl sm:text-3xl lg:text-4xl" : "text-xl sm:text-2xl"
-              }`}
+              class={[
+                "font-serif font-bold text-stone-900 leading-snug tracking-tight mb-3",
+                props.featured ? "text-2xl sm:text-3xl lg:text-4xl" : "text-xl sm:text-2xl",
+              ]}
             >
               {post().title}
             </h3>

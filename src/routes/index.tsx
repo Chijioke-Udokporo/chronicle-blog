@@ -1,6 +1,6 @@
 import { createSignal, onSettled, For, Show, createMemo } from "solid-js";
 import { useSearchParams } from "@solidjs/router";
-import { client, type PostsPopulated } from "../lib/api";
+import { getPostsServer, seedCuratedArticlesServer, type PostsPopulated } from "../lib/api";
 import { PostCard } from "../components/PostCard";
 import { isAuthenticated } from "../lib/auth";
 
@@ -16,14 +16,10 @@ export default function Home() {
   const loadPosts = async () => {
     setIsLoading(true);
     try {
-      const res = await client.posts.get({
-        query: { depth: 1 },
-      });
-      if (res.data && Array.isArray(res.data.docs)) {
-        setPosts(res.data.docs);
-      }
+      const data = await getPostsServer();
+      setPosts(data);
     } catch (err) {
-      console.error("Network error loading posts:", err);
+      console.error("Network error loading posts via server function:", err);
     } finally {
       setIsLoading(false);
     }
@@ -38,19 +34,23 @@ export default function Home() {
   const filteredPosts = createMemo(() => {
     const all = posts();
     const cat = activeCategory();
-    const query = searchQuery().toLowerCase().trim();
+    const q = searchQuery().toLowerCase().trim();
+    const results: PostsPopulated[] = [];
 
-    return all.filter((post: PostsPopulated) => {
+    for (const post of all) {
       const matchesCat = cat === "All" || post.category === cat;
       const authorName = typeof post.author === "object" && post.author ? post.author.name : "";
       const matchesSearch =
-        !query ||
-        post.title.toLowerCase().includes(query) ||
-        (post.summary && post.summary.toLowerCase().includes(query)) ||
-        authorName.toLowerCase().includes(query);
+        !q ||
+        post.title.toLowerCase().includes(q) ||
+        (post.summary && post.summary.toLowerCase().includes(q)) ||
+        authorName.toLowerCase().includes(q);
 
-      return matchesCat && matchesSearch;
-    });
+      if (matchesCat && matchesSearch) {
+        results.push(post);
+      }
+    }
+    return results;
   });
 
   const featuredPost = createMemo(() => {
@@ -63,83 +63,16 @@ export default function Home() {
     return items.length > 1 ? items.slice(1) : [];
   });
 
-  // Helper to seed sample editorial essays if the database has zero posts
+  // Seed sample editorial essays via server function
   const handleSeedSampleStories = async () => {
     setIsSeeding(true);
     try {
-      // 1. Ensure a demo author user exists
-      const userRes = await client.users.get({
-        query: {
-          where: { email: { eq: "editorial@chronicle.journal" } },
-        },
-      });
-
-      let authorId: string;
-      if (userRes.data?.docs && userRes.data.docs.length > 0) {
-        authorId = userRes.data.docs[0].id;
-      } else {
-        const createRes = await client.auth.register({
-          name: "Elena Vance",
-          email: "editorial@chronicle.journal",
-          password: "EditorialPassword123!",
-          role: "user",
-          bio: "Principal Systems Architect & Editor-at-Large",
-          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop",
-        });
-        if (createRes.data?.user?.id) {
-          authorId = createRes.data.user.id;
-        } else {
-          authorId = "system";
-        }
+      const res = await seedCuratedArticlesServer();
+      if (res.success) {
+        await loadPosts();
       }
-
-      // Sample articles
-      const samplePosts = [
-        {
-          title: "The Architecture of Calm Software Systems",
-          slug: "the-architecture-of-calm-software-systems",
-          summary:
-            "Why modern engineering teams are pivoting from bloated microservice sprawl toward cohesive, deterministic architectures that respect cognitive bandwidth.",
-          content: `Software development in the early 2020s was characterized by hyper-fragmentation. Teams split simple monoliths into dozens of distributed services, introducing network latency, cascading failures, and distributed transaction headaches.\n\n## Returning to First Principles\n\nWhen we step back and evaluate our core operational objectives, software reliability and human ergonomics outweigh arbitrary technical complexity. A calm system provides deterministic execution paths, type-safe boundaries, and zero-runtime-overhead abstractions.\n\n> "Simplicity is prerequisite for reliability." — Edsger W. Dijkstra\n\n### The Three Pillars of Calm Engineering\n\n1. **Unified Schema Contracts**: Generating client SDKs directly from backend DSL definitions.\n2. **Fine-Grained Reactivity**: Updating only the DOM nodes that actually changed instead of diffing a virtual tree.\n3. **Row-Level Security at the Boundary**: Protecting every read and write where data lives.\n\nBy uniting SolidJS 2's reactive primitives with Cequre's native client SDK, developers gain end-to-end type safety without external package overhead.`,
-          category: "Architecture" as const,
-          readingTime: 4,
-          published: true,
-          coverImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
-          author: authorId,
-        },
-        {
-          title: "Fine-Grained Reactivity: SolidJS 2 and the Death of the Virtual DOM",
-          slug: "fine-grained-reactivity-solidjs-2",
-          summary:
-            "An in-depth analysis of compiler-driven signals, lazy route execution, and how SolidJS achieves peak web performance without virtual DOM reconciliation.",
-          content: `For almost a decade, frontend frameworks taught developers that rendering is a cycle of calculating full UI state trees and diffing them against memory representations.\n\nSolidJS dismantled that paradigm. In SolidJS 2, components run exactly once at mount time. They are not components in the re-rendering sense—they are factory functions that construct an enduring reactive graph.\n\n## Direct DOM Binding\n\nWhen a signal changes, Solid does not walk an element tree. It calls the exact update expression wired directly to that specific DOM text node or attribute.\n\n\`\`\`typescript\nconst [count, setCount] = createSignal(0);\n// Under the hood, this compiles to node.data = count()\n<div>{count()}</div>\n\`\`\`\n\nThis guarantees minimal memory allocations, immediate frame dispatch, and effortless 60fps animations even on budget mobile processors.`,
-          category: "Technology" as const,
-          readingTime: 5,
-          published: true,
-          coverImage: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop",
-          author: authorId,
-        },
-        {
-          title: "Crafting Timeless Digital Typography in Modern Web Design",
-          slug: "crafting-timeless-digital-typography",
-          summary:
-            "Moving beyond generic fonts: pairing serif headlines with high-contrast geometric sans to evoke editorial gravitas and enduring legibility.",
-          content: `Design is how it works, but typography is how it speaks. Most digital applications today feel interchangeable because they rely on the same sterile neo-grotesque sans-serif fonts.\n\n## The Power of Serif in Technical Prose\n\nSerif display typefaces carry historical authority and cadence. They slow the reader's eye just enough to savor complex ideas, while crisp sans-serif body typography provides optimal reading speed and vertical rhythm.\n\nWhen designing Chronicle, we prioritized:\n- Proportional line heights (1.85 for narrative text)\n- Optical margins on blockquotes\n- Distinctive terracotta accents instead of generic AI purple gradients\n\nThe result is a reading environment that feels akin to holding a physical journal.`,
-          category: "Design" as const,
-          readingTime: 3,
-          published: true,
-          coverImage: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1200&auto=format&fit=crop",
-          author: authorId,
-        },
-      ];
-
-      for (const p of samplePosts) {
-        await client.posts.post(p);
-      }
-
-      await loadPosts();
     } catch (err) {
-      console.error("Error seeding:", err);
+      console.error("Failed to seed sample stories:", err);
     } finally {
       setIsSeeding(false);
     }
@@ -182,11 +115,12 @@ export default function Home() {
               {(category) => (
                 <button
                   onClick={() => setSearchParams({ category: category === "All" ? undefined : category })}
-                  class={`px-4 py-1.5 rounded-full text-xs font-mono tracking-wide transition-all whitespace-nowrap cursor-pointer ${
+                  class={[
+                    "px-4 py-1.5 rounded-full text-xs font-mono tracking-wide transition-all whitespace-nowrap cursor-pointer",
                     activeCategory() === category
                       ? "bg-stone-900 text-white shadow-sm font-semibold"
-                      : "bg-white border border-stone-200 text-stone-600 hover:border-stone-400"
-                  }`}
+                      : "bg-white border border-stone-200 text-stone-600 hover:border-stone-400",
+                  ]}
                 >
                   {category}
                 </button>

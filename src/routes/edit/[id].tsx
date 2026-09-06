@@ -1,6 +1,6 @@
 import { createSignal, onSettled, Show } from "solid-js";
 import { useParams, useNavigate } from "@solidjs/router";
-import { client, type PostsPopulated } from "../../lib/api";
+import { getPostByIdServer, updatePostServer, type PostsPopulated } from "../../lib/api";
 import { user } from "../../lib/auth";
 
 export default function EditPost() {
@@ -22,12 +22,8 @@ export default function EditPost() {
   const loadPost = async (id: string) => {
     setIsLoading(true);
     try {
-      const res = await client.posts.get({
-        id,
-        query: { depth: 1 },
-      });
-      if (res.data) {
-        const p = res.data as PostsPopulated;
+      const p = await getPostByIdServer(id);
+      if (p) {
         setPost(p);
         setTitle(p.title || "");
         setCategory(p.category || "Technology");
@@ -36,7 +32,7 @@ export default function EditPost() {
         setContent(p.content || "");
       }
     } catch (err) {
-      console.error("Failed to load post for editing:", err);
+      console.error("Failed to load post for editing via server function:", err);
     } finally {
       setIsLoading(false);
     }
@@ -82,20 +78,16 @@ export default function EditPost() {
 
     setIsSubmitting(true);
     try {
-      const words = content().trim().split(/\s+/).length;
-      const readingTime = Math.max(1, Math.ceil(words / 180));
-
-      const res = await client.posts.patch(params.id, {
+      const res = await updatePostServer(params.id, {
         title: title().trim(),
         category: category(),
         coverImage: coverImage().trim() || undefined,
         summary: summary().trim() || undefined,
         content: content().trim(),
-        readingTime,
       });
 
-      if (res.error) {
-        setErrorMessage(res.error.message || "Failed to update article.");
+      if (!res.success) {
+        setErrorMessage(res.error || "Failed to update article.");
         setIsSubmitting(false);
         return;
       }
